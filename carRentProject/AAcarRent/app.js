@@ -1,23 +1,33 @@
-﻿var App = angular.module('App', ['ngRoute', 'ui.bootstrap', 'chart.js']);
+﻿var App = angular.module('App', ['ngRoute']);
 
-App.controller('MainController', MainController);
-App.controller('AboutController', AboutController);
+//App.controller('MainController', MainController);
+//App.controller('LoginController', LoginController);
+//App.controller('AboutController', AboutController);
 App.controller('SignupController', SignupController);
+
+
+App.controller('AppController', function ($scope) {
+    $scope.firstName = "";
+    $scope.lastName = "";
+});
 
 
 var configFunction = function ($routeProvider, $httpProvider) {
     $routeProvider
         .when("/#/", {
             templateUrl: ""
-        })
+         })
+        .when("/index", {
+            templateUrl: "/AAcarRent/Views/Index.html"
+         })
          .when("/about", {
-             templateUrl: "rentCar/Views/About.html"
+             templateUrl: "/AAcarRent/Views/About.html"
          })
         .when("/login", {
-            templateUrl: "rentCar/Views/Login.html"
+            templateUrl: "/AAcarRent/Views/Login.html"
         })
         .when("/signup", {
-            templateUrl: "rentCar/Views/Signup.html"
+            templateUrl: "/AAcarRent/Views/Signup.html"
         })
        .otherwise({
            redirectTo: function () {
@@ -28,3 +38,5 @@ var configFunction = function ($routeProvider, $httpProvider) {
 configFunction.$inject = ['$routeProvider', '$httpProvider'];
 
 App.config(configFunction);
+
+
