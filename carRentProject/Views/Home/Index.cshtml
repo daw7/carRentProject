@@ -15,27 +15,18 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
-<script src="~/AAcarRent/Controllers/SignupController.js"></script>
-<script src="~/AAcarRent/app.js"></script>
 
 
-    <body>
+
+    <body ng-app="App">
         <p>Try to change the names.</p>
-            <div ng-app="App" ng-controller="AppController">
-
-                
-
-                    First Name: <input type="text" ng-model="firstName"><br>
-                    Last Name: <input type="text" ng-model="lastName"><br>
-                    <br>
-                    Full Name: {{firstName + " " + lastName}}
-
-
+            <div>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                         <li><a href="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="#email"><span class="glyphicon glyphicon-envelope"></span> Email</a></li>
                     </ul>
-                <div class="ng-view"> </div>
+                <div class="ng-view">  </div>
         </div>
     </body>
 </html>

@@ -173,6 +173,7 @@
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -212,9 +213,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AAcarRent\app.js" />
+    <Content Include="AAcarRent\Controllers\EmailController.js" />
     <Content Include="AAcarRent\Controllers\LoginController.js" />
+    <Content Include="AAcarRent\Controllers\MyCtrl1Controller.js" />
     <Content Include="AAcarRent\Controllers\SignupController.js" />
     <Content Include="AAcarRent\Views\About.html" />
+    <Content Include="AAcarRent\Views\Email.html" />
     <Content Include="AAcarRent\Views\Index.html" />
     <Content Include="AAcarRent\Views\Login.html" />
     <Content Include="AAcarRent\Views\Signup.html" />
@@ -1074,10 +1078,16 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Registration\Create.cshtml" />
+    <Content Include="Views\Registration\Delete.cshtml" />
+    <Content Include="Views\Registration\Details.cshtml" />
+    <Content Include="Views\Registration\Edit.cshtml" />
+    <Content Include="Views\Registration\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Data\" />
+    <Folder Include="Views\Email\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
