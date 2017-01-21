@@ -23,7 +23,7 @@ namespace carRentProject.Models
         public int tp_carID { get; set; }
         public bool active { get; set; }
         public int type { get; set; }
-        public int @class { get; set; }
+        public string segment { get; set; }
         public decimal priceGross { get; set; }
         public decimal priceNet { get; set; }
         public decimal deposit { get; set; }

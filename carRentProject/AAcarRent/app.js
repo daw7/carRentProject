@@ -11,15 +11,19 @@ var configFunction = function ($routeProvider, $httpProvider) {
             templateUrl: "/AAcarRent/Views/Index.html"
          })
          .when("/about", {
-             templateUrl: "/AAcarRent/Views/About.html",
-             controller: "Email"
+             templateUrl: "/AAcarRent/Views/About.html"
          })
         .when("/login", {
             templateUrl: "/AAcarRent/Views/Login.html",
             controller: "MyCtrl1"
         })
         .when("/email", {
-            templateUrl: "/AAcarRent/Views/Email.html"
+            templateUrl: "/AAcarRent/Views/Email.html",
+            controller: "Email"
+        })
+        .when("/cars", {
+            templateUrl: "/AAcarRent/Views/Cars.html"
+            
         })
         .when("/signup", {
             templateUrl: "/AAcarRent/Views/Signup.html"

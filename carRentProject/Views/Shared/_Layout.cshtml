@@ -12,7 +12,7 @@
 
 
 </head>
-<body>
+<body ng-app="App">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -24,12 +24,19 @@
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#cars"><span class="glyphicon glyphicon-road"></span> Cars</a></li>
+                    <li><a href="#signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="#email"><span class="glyphicon glyphicon-envelope"></span> Email</a></li>
+                </ul>
+
+            <!--   <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial")--> 
             </div>
         </div>
     </div>

@@ -5,12 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="928be0696803494aafd633946b1f7146" Name="Diagram1">
-        <EntityTypeShape EntityType="CarRentalModel.Car" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRentalModel.Order" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRentalModel.sysdiagram" Width="1.5" PointX="9" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRentalModel.User" Width="1.5" PointX="5.5" PointY="1.25" IsExpanded="true" />
-        <AssociationConnector Association="CarRentalModel.FK_Orders_Cars" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRentalModel.FK_Orders_Users" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CarRentalModel.Car" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="CarRentalModel.Order" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="CarRentalModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CarRentalModel.User" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CarRentalModel.Address" Width="1.5" PointX="4.75" PointY="4.75" />
+        <AssociationConnector Association="CarRentalModel.FK_Orders_Cars" />
+        <AssociationConnector Association="CarRentalModel.FK_Orders_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
