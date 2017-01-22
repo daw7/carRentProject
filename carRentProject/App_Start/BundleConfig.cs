@@ -30,9 +30,16 @@ namespace carRentProject
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            
+            bundles.Add(new ScriptBundle("~/bundles/material").Include(
+                 "~/Scripts/angular-animate.min.js",
+                      "~/Scripts/angular-aria.min.js",
+                      "~/Scripts/angular-material/angular-material.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Scripts/angular-material/angular-material.css"));
 
 
             BundleTable.EnableOptimizations = true;
