@@ -23,7 +23,7 @@ var configFunction = function ($routeProvider, $httpProvider) {
         })
         .when("/cars", {
             templateUrl: "/AAcarRent/Views/Cars.html",
-            controller: "Car"
+            
         })
         .when("/signup", {
             templateUrl: "/AAcarRent/Views/Signup.html"

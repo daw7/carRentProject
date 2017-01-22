@@ -1,14 +1,75 @@
-﻿{{msg}}
+﻿<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 
-<table style="broder": 1px solid gray;">
-    <tr>
-        <th>Car Brand:</th>
-        <th>Car Model:</th>
-        <th>Car Segment:</th>
-    </tr>
-    <tr ng-repeat="car in cars">
-        <td>{{car.brand}}</td>
-        <td>{{car.model}}</td>
-        <td>{{car.segment}}</td>
-    </tr>
-</table>
+</head>
+<body ng-app="App">
+    <!--
+      Your HTML content here
+    -->
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+    <div ng-controller="CarCtrl" ng-cloak layout-gt-sm="row" layout="column" layout-align="center">
+
+        <div flex-gt-sm="60" flex>
+
+            <md-toolbar layout="row" class="md-hue-3">
+                <div class="md-toolbar-tools">
+                    <span>Flota samochodów:</span>
+                </div>
+            </md-toolbar>
+
+            <md-content>
+                <md-list flex>
+                    <!--<md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader>-->
+                    <md-list-item class="md-2-line" ng-repeat="car in cars" ng-click="null">
+                        <img ng-src="{{car.img}}" class="md-media-md" />
+                        
+                        <div class="md-list-item-text" layout="column">
+                            <h2>{{ car.brand }}</h2>
+                            <h3>{{ car.model }}</h3>
+                            
+                        </div>
+                            <p>Klasa: {{ car.segment }}</p>                      
+                            <h1 class="md-secondary">{{ car.priceGross }}zł</h1>                                            
+                    </md-list-item>
+                    <md-divider></md-divider>
+                </md-list>
+            </md-content>
+        </div>
+
+    </div>
+    <!-- Your application bootstrap  -->
+    <script>
+
+        angular.module('App', ['ngMaterial'])
+.controller('CarCtrl', ['$scope', '$http', function ($scope, $http) {
+    var imagePath = 'img/list/60.jpeg';
+
+    $scope.cars = ""; 
+    $http.get("/Cars/getCarData")
+            .success(function (result) {
+                $scope.cars = result;
+            })
+            .error(function (result) {
+                console.log("Http error");
+            });
+}]);
+    </script>
+
+</body>
+
+
+
+
+
+
+

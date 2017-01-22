@@ -5,22 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="CarRentalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'CarRental.dbo.Acoun' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Acoun">
-          <Property Name="tp_UserID" Type="int" />
-          <Property Name="UserLogin" Type="varchar" MaxLength="15" />
-          <Property Name="UserPassword" Type="varchar" MaxLength="15" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CarRental.dbo.Address' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="Address">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="100" />
-        </EntityType>
         <EntityType Name="Cars">
           <Key>
             <PropertyRef Name="tp_carID" />
@@ -34,6 +18,7 @@ warning 6002: The table/view 'CarRental.dbo.Address' does not have a primary key
           <Property Name="deposit" Type="money" Nullable="false" />
           <Property Name="brand" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="model" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="img" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -102,12 +87,6 @@ warning 6002: The table/view 'CarRental.dbo.Address' does not have a primary key
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Address" EntityType="Self.Address" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Address].[ID] AS [ID], 
-    [Address].[Address] AS [Address]
-    FROM [dbo].[Address] AS [Address]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Orders_Cars" Association="Self.FK_Orders_Cars">
             <End Role="Cars" EntitySet="Cars" />
             <End Role="Orders" EntitySet="Orders" />
@@ -126,7 +105,6 @@ warning 6002: The table/view 'CarRental.dbo.Address' does not have a primary key
           <EntitySet Name="Orders" EntityType="CarRentalModel.Order" />
           <EntitySet Name="sysdiagrams" EntityType="CarRentalModel.sysdiagram" />
           <EntitySet Name="Users" EntityType="CarRentalModel.User" />
-          <EntitySet Name="Addresses" EntityType="CarRentalModel.Address" />
           <AssociationSet Name="FK_Orders_Cars" Association="CarRentalModel.FK_Orders_Cars">
             <End Role="Car" EntitySet="Cars" />
             <End Role="Order" EntitySet="Orders" />
@@ -149,6 +127,7 @@ warning 6002: The table/view 'CarRental.dbo.Address' does not have a primary key
           <Property Name="deposit" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="brand" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="img" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Orders" Relationship="CarRentalModel.FK_Orders_Cars" FromRole="Car" ToRole="Order" />
         </EntityType>
         <EntityType Name="Order">
@@ -192,13 +171,6 @@ warning 6002: The table/view 'CarRental.dbo.Address' does not have a primary key
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="CarRentalModel.FK_Orders_Users" FromRole="User" ToRole="Order" />
         </EntityType>
-        <EntityType Name="Address">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
         <Association Name="FK_Orders_Cars">
           <End Type="CarRentalModel.Car" Role="Car" Multiplicity="1" />
           <End Type="CarRentalModel.Order" Role="Order" Multiplicity="*" />
@@ -223,7 +195,7 @@ warning 6002: The table/view 'CarRental.dbo.Address' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -232,6 +204,7 @@ warning 6002: The table/view 'CarRental.dbo.Address' does not have a primary key
           <EntitySetMapping Name="Cars">
             <EntityTypeMapping TypeName="CarRentalModel.Car">
               <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="img" ColumnName="img" />
                 <ScalarProperty Name="model" ColumnName="model" />
                 <ScalarProperty Name="brand" ColumnName="brand" />
                 <ScalarProperty Name="deposit" ColumnName="deposit" />
@@ -282,14 +255,6 @@ warning 6002: The table/view 'CarRental.dbo.Address' does not have a primary key
                 <ScalarProperty Name="firstName" ColumnName="firstName" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="tp_UserID" ColumnName="tp_UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Addresses">
-            <EntityTypeMapping TypeName="CarRentalModel.Address">
-              <MappingFragment StoreEntitySet="Address">
-                <ScalarProperty Name="Address1" ColumnName="Address" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
