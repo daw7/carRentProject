@@ -228,6 +228,7 @@
     <Content Include="AAcarRent\Views\Index.html" />
     <Content Include="AAcarRent\Views\Login.html" />
     <Content Include="AAcarRent\Views\Signup.html" />
+    <Content Include="AAcarRent\Views\Test.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />

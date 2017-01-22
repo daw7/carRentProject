@@ -14,6 +14,23 @@ namespace carRentProject.Controllers
     {
         private CarRentEntities db = new CarRentEntities();
 
+        [HttpPost]
+        public ActionResult createNewUser(User data)
+        {
+            var user = db.Users.FirstOrDefault(x => x.login.Equals(data.login));
+            if(user != null)
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+                return new JsonResult { Data = user, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+            
+        }
+
         // GET: Registration
         public ActionResult Index()
         {
