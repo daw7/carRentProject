@@ -1,4 +1,4 @@
-﻿var App = angular.module('App', ['ngRoute']);
+﻿var App = angular.module('App', ['ngRoute', 'ngMaterial']);
 
 
 
@@ -23,7 +23,7 @@ var configFunction = function ($routeProvider, $httpProvider) {
         })
         .when("/cars", {
             templateUrl: "/AAcarRent/Views/Cars.html",
-            
+            controller: "Car"
         })
         .when("/signup", {
             templateUrl: "/AAcarRent/Views/Signup.html"
