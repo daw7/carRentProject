@@ -14,6 +14,15 @@ namespace carRentProject.Controllers
     {
         private CarRentEntities db = new CarRentEntities();
 
+        [HttpGet]
+        public ActionResult getCarData()
+        {
+            CarRentEntities db = new CarRentEntities();
+            var cars = db.Cars.ToList();
+            return Json ( cars, JsonRequestBehavior.AllowGet );
+        }
+
+
         // GET: Cars
         public ActionResult Index()
         {
