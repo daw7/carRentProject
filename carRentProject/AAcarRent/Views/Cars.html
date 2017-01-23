@@ -15,7 +15,7 @@
             </md-toolbar>
             <md-content>
                 <md-list flex>
-                    <md-list-item class="md-2-line" ng-repeat="car in cars | filter:query" ng-click="null">
+                    <md-list-item class="md-2-line" ng-repeat="car in cars | filter:query" ng-click="changeListName(car)">
                         <img ng-src="{{car.img}}" class="md-media-md" />
                         <div class="md-list-item-text" layout="column">
                             <h2>{{ car.brand }}</h2>

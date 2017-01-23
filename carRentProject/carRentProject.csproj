@@ -220,12 +220,15 @@
     <Content Include="AAcarRent\Controllers\EmailController.js" />
     <Content Include="AAcarRent\Controllers\LoginController.js" />
     <Content Include="AAcarRent\Controllers\MyCtrl1Controller.js" />
+    <Content Include="AAcarRent\Controllers\OrderController.js" />
+    <Content Include="AAcarRent\Controllers\OrderServiceController.js" />
     <Content Include="AAcarRent\Controllers\SignupController.js" />
     <Content Include="AAcarRent\Views\About.html" />
     <Content Include="AAcarRent\Views\Cars.html" />
     <Content Include="AAcarRent\Views\Email.html" />
     <Content Include="AAcarRent\Views\Index.html" />
     <Content Include="AAcarRent\Views\Login.html" />
+    <Content Include="AAcarRent\Views\Order.html" />
     <Content Include="AAcarRent\Views\Signup.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
