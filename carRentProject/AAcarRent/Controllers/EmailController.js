@@ -1,20 +1,20 @@
-﻿angular.module('App')
-.controller('Email', ['$scope', function ($scope) {
-    $scope.formInfo = {};
-    $scope.saveData = function () {
-        $scope.nameRequired = '';
-        $scope.emailRequired = '';
-        $scope.passwordRequired = '';
-        if (!$scope.formInfo.Name) {
-            $scope.nameRequired = 'Name Required';
-        }
+﻿var myApp = angular.module('App');
+myApp.controller('Email', ['$scope', '$http', function ($scope, $http) {
 
-        if (!$scope.formInfo.Email) {
-            $scope.emailRequired = 'Email Required';
-        }
+    $scope.mail = {}
 
-        if (!$scope.formInfo.Password) {
-            $scope.passwordRequired = 'Password Required';
-        }
-    };
-}])
+    $scope.sendEmail = function () {
+        $http({
+            url: '/Emails/SendEmail',
+            method: "POST",
+            data: $.param($scope.mail),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            }
+            
+        })
+        
+    }
+    
+    
+}]);
