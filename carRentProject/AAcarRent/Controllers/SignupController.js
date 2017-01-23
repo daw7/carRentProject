@@ -1,7 +1,9 @@
 ﻿var myApp = angular.module('App');
 myApp.controller('Signup', ['$scope', '$http', function ($scope, $http) {
     
-    $scope.user = { }
+    $scope.user = {}
+
+    
 
 
     $scope.createUser = function () {
@@ -12,6 +14,8 @@ myApp.controller('Signup', ['$scope', '$http', function ($scope, $http) {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             } 
-        })  
+        })
+        alert("Twoje dane zostały poprawnie przesłane!");
+        window.location.href = "#";
     }
 }]);
