@@ -14,6 +14,16 @@ namespace carRentProject.Controllers
     {
         private CarRentEntities db = new CarRentEntities();
 
+        [HttpPost]
+        public ActionResult getUserData(User usr)
+         {
+            usr.active = true;
+            db.Users.Add(usr);
+            db.SaveChanges();
+            return new JsonResult { Data = usr, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+
         // GET: Registration
         public ActionResult Index()
         {

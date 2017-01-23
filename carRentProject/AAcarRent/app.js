@@ -26,7 +26,8 @@ var configFunction = function ($routeProvider, $httpProvider) {
             controller: "Car"
         })
         .when("/signup", {
-            templateUrl: "/AAcarRent/Views/Signup.html"
+            templateUrl: "/AAcarRent/Views/Signup.html",
+            controller: "Signup"
         })
        .otherwise({
            redirectTo: function () {

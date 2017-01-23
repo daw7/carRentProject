@@ -1,4 +1,17 @@
-﻿var SignupController = function ($scope) {
-}
+﻿var myApp = angular.module('App');
+myApp.controller('Signup', ['$scope', '$http', function ($scope, $http) {
+    
+    $scope.user = { }
 
-SignupController.$inject = ['$scope'];
+
+    $scope.createUser = function () {
+        $http({
+            url: '/Registration/getUserData',
+            method: "POST",
+            data: $.param($scope.user),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            } 
+        })  
+    }
+}]);

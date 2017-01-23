@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CarRentalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CarRentDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cars">
           <Key>
             <PropertyRef Name="tp_carID" />
@@ -18,7 +18,7 @@
           <Property Name="deposit" Type="money" Nullable="false" />
           <Property Name="brand" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="model" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="img" Type="varchar" MaxLength="255" />
+          <Property Name="img" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -46,7 +46,7 @@
           <Key>
             <PropertyRef Name="tp_UserID" />
           </Key>
-          <Property Name="tp_UserID" Type="int" Nullable="false" />
+          <Property Name="tp_UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
           <Property Name="firstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="secondName" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -82,7 +82,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CarRentalModelStoreContainer">
+        <EntityContainer Name="CarRentDBModelStoreContainer">
           <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -96,24 +96,11 @@
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CarRentalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="CarRentEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Cars" EntityType="CarRentalModel.Car" />
-          <EntitySet Name="Orders" EntityType="CarRentalModel.Order" />
-          <EntitySet Name="sysdiagrams" EntityType="CarRentalModel.sysdiagram" />
-          <EntitySet Name="Users" EntityType="CarRentalModel.User" />
-          <AssociationSet Name="FK_Orders_Cars" Association="CarRentalModel.FK_Orders_Cars">
-            <End Role="Car" EntitySet="Cars" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Orders_Users" Association="CarRentalModel.FK_Orders_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-        </EntityContainer>
+      <Schema Namespace="CarRentDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Car">
           <Key>
             <PropertyRef Name="tp_carID" />
@@ -122,13 +109,13 @@
           <Property Name="active" Type="Boolean" Nullable="false" />
           <Property Name="type" Type="Int32" Nullable="false" />
           <Property Name="segment" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="priceGross" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="priceNet" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="deposit" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="brand" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="img" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Orders" Relationship="CarRentalModel.FK_Orders_Cars" FromRole="Car" ToRole="Order" />
+          <Property Name="priceGross" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="priceNet" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="deposit" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="brand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="img" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Cars" FromRole="Cars" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -141,14 +128,14 @@
           <Property Name="tp_CarID" Type="Int32" Nullable="false" />
           <Property Name="tp_UserID" Type="Int32" Nullable="false" />
           <Property Name="agreement" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Car" Relationship="CarRentalModel.FK_Orders_Cars" FromRole="Order" ToRole="Car" />
-          <NavigationProperty Name="User" Relationship="CarRentalModel.FK_Orders_Users" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_Orders_Cars" FromRole="Orders" ToRole="Cars" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -158,10 +145,10 @@
           <Key>
             <PropertyRef Name="tp_UserID" />
           </Key>
-          <Property Name="tp_UserID" Type="Int32" Nullable="false" />
+          <Property Name="tp_UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="active" Type="Boolean" Nullable="false" />
-          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="secondName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="secondName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="dateOfBirth" Type="DateTime" Precision="0" />
           <Property Name="pesel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
@@ -169,92 +156,106 @@
           <Property Name="postalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Orders" Relationship="CarRentalModel.FK_Orders_Users" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
         </EntityType>
         <Association Name="FK_Orders_Cars">
-          <End Type="CarRentalModel.Car" Role="Car" Multiplicity="1" />
-          <End Type="CarRentalModel.Order" Role="Order" Multiplicity="*" />
+          <End Role="Cars" Type="Self.Car" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Car">
+            <Principal Role="Cars">
               <PropertyRef Name="tp_carID" />
             </Principal>
-            <Dependent Role="Order">
+            <Dependent Role="Orders">
               <PropertyRef Name="tp_CarID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_Users">
-          <End Type="CarRentalModel.User" Role="User" Multiplicity="1" />
-          <End Type="CarRentalModel.Order" Role="Order" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="tp_UserID" />
             </Principal>
-            <Dependent Role="Order">
+            <Dependent Role="Orders">
               <PropertyRef Name="tp_UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <EntityContainer Name="CarRentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cars" EntityType="Self.Car" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Orders_Cars" Association="Self.FK_Orders_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CarRentalModelStoreContainer" CdmEntityContainer="CarRentEntities">
+        <EntityContainerMapping StorageEntityContainer="CarRentDBModelStoreContainer" CdmEntityContainer="CarRentEntities">
           <EntitySetMapping Name="Cars">
-            <EntityTypeMapping TypeName="CarRentalModel.Car">
+            <EntityTypeMapping TypeName="CarRentDBModel.Car">
               <MappingFragment StoreEntitySet="Cars">
-                <ScalarProperty Name="img" ColumnName="img" />
-                <ScalarProperty Name="model" ColumnName="model" />
-                <ScalarProperty Name="brand" ColumnName="brand" />
-                <ScalarProperty Name="deposit" ColumnName="deposit" />
-                <ScalarProperty Name="priceNet" ColumnName="priceNet" />
-                <ScalarProperty Name="priceGross" ColumnName="priceGross" />
-                <ScalarProperty Name="segment" ColumnName="segment" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="tp_carID" ColumnName="tp_carID" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="segment" ColumnName="segment" />
+                <ScalarProperty Name="priceGross" ColumnName="priceGross" />
+                <ScalarProperty Name="priceNet" ColumnName="priceNet" />
+                <ScalarProperty Name="deposit" ColumnName="deposit" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="img" ColumnName="img" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="CarRentalModel.Order">
+            <EntityTypeMapping TypeName="CarRentDBModel.Order">
               <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="agreement" ColumnName="agreement" />
-                <ScalarProperty Name="tp_UserID" ColumnName="tp_UserID" />
-                <ScalarProperty Name="tp_CarID" ColumnName="tp_CarID" />
-                <ScalarProperty Name="dateOut" ColumnName="dateOut" />
-                <ScalarProperty Name="dateIn" ColumnName="dateIn" />
-                <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="tp_OrderID" ColumnName="tp_OrderID" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateIn" ColumnName="dateIn" />
+                <ScalarProperty Name="dateOut" ColumnName="dateOut" />
+                <ScalarProperty Name="tp_CarID" ColumnName="tp_CarID" />
+                <ScalarProperty Name="tp_UserID" ColumnName="tp_UserID" />
+                <ScalarProperty Name="agreement" ColumnName="agreement" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="CarRentalModel.sysdiagram">
+            <EntityTypeMapping TypeName="CarRentDBModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="CarRentalModel.User">
+            <EntityTypeMapping TypeName="CarRentDBModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="login" ColumnName="login" />
-                <ScalarProperty Name="postalCode" ColumnName="postalCode" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="pesel" ColumnName="pesel" />
-                <ScalarProperty Name="dateOfBirth" ColumnName="dateOfBirth" />
-                <ScalarProperty Name="secondName" ColumnName="secondName" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
-                <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="tp_UserID" ColumnName="tp_UserID" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="secondName" ColumnName="secondName" />
+                <ScalarProperty Name="dateOfBirth" ColumnName="dateOfBirth" />
+                <ScalarProperty Name="pesel" ColumnName="pesel" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postalCode" ColumnName="postalCode" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

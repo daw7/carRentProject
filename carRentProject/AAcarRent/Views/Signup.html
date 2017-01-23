@@ -1,12 +1,21 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <meta charset="utf-8" />
-</head>
-<body>
-
-    <h1> Signup.html </h1>
-
-</body>
-</html>
+﻿<div>
+    <form name="SendEmailform" ng-submit="createUser();">
+        <input class="form-control" id="firstName" placeholder="Imię:" ng-model="user.firstName">
+        <br>
+        <input class="form-control" id="secondName" placeholder="Nazwisko:" ng-model="user.secondName">
+        <br>
+        <input class="form-control" id="pesel" placeholder="Pesel:" ng-model="user.pesel">
+        <br>
+        <input class="form-control" id="address" placeholder="Address:" ng-model="user.address">
+        <br>
+        <input class="form-control" id="city" placeholder="City:" ng-model="user.city">
+        <br>
+        <input class="form-control" id="postal" placeholder="Postal:" ng-model="user.postal">
+        <br>
+        <input class="form-control" id="login" placeholder="Login:" ng-model="user.login">
+        <br>
+        <input class="form-control" id="password" placeholder="Password:" ng-model="user.password">
+        <br>
+        <button type="submit" ng-click="saveData()" class="btn btn-success">Zarejestruj</button>
+    </form>
+</div>
