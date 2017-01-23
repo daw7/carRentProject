@@ -1,5 +1,5 @@
-﻿var myApp = angular.module('App');
-myApp.controller('Email', ['$scope', '$http', function ($scope, $http) {
+﻿
+angular.module('App').controller('Email', ['$scope', '$http', function ($scope, $http) {
 
     $scope.mail = {}
 

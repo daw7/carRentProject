@@ -1,4 +1,4 @@
-﻿var App = angular.module('App', ['ngRoute', 'ngMaterial']);
+﻿var App = angular.module('App', ['ngRoute', 'ngMaterial','ngMessages']);
 
 
 
@@ -25,6 +25,10 @@ var configFunction = function ($routeProvider, $httpProvider) {
             templateUrl: "/AAcarRent/Views/Cars.html",
             controller: "Car"
         })
+        .when("/order", {
+            templateUrl: "/AAcarRent/Views/Order.html",
+            controller: "Order"
+        })
         .when("/signup", {
             templateUrl: "/AAcarRent/Views/Signup.html"
         })
@@ -34,6 +38,9 @@ var configFunction = function ($routeProvider, $httpProvider) {
            }
        });
 }
+
+
+
 configFunction.$inject = ['$routeProvider', '$httpProvider'];
 
 App.config(configFunction);
