@@ -1,92 +1,92 @@
 ﻿<div layout="column" ng-cloak="" class="md-inline-form inputdemoBasicUsage">
-    {{products}}
-    <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding="">
-        <div>
-            <md-input-container>
-                <label>Title</label>
-                <input ng-model="user.title">
-            </md-input-container>
-
-            <md-input-container>
-                <label>Email</label>
-                <input ng-model="user.email" type="email">
-            </md-input-container>
-        </div>
-    </md-content>
-
     <md-content layout-padding="">
         <div>
-            <form name="userForm">
+            <form name="userForm" ng-submit="sendEmail()">
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-xs="">
+                        <label>Marka pojazdu</label>
+                        <input ng-model="products.brand" disabled="">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-xs="">
+                        <label>Model pojazdu</label>
+                        <input ng-model="products.model" disabled="">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-xs="">
+                        <label>Klasa pojazdu</label>
+                        <input ng-model="products.segment" disabled="">
+                    </md-input-container>
+
+                    <div layout-gt-sm="row" layout-align="end">
+                        <img ng-src="{{products.img}}" class="md-media-md" />
+                    </div>
+                </div>
+                <div layout-gt-sm="row" layout-align="end">
+                    <h2 class="md-headline">{{cena}}</h2>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Imię</label>
+                        <input ng-model="user.firstName">
+                    </md-input-container>
+                </div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Nazwisko</label>
+                        <input ng-model="user.secondName">
+                    </md-input-container>
+                </div>
+
+
 
                 <div layout-gt-xs="row">
-                    <md-input-container class="md-block" flex-gt-xs="">
-                        <label>Company (Disabled)</label>
-                        <input ng-model="user.company" disabled="">
+                    <md-input-container>
+                        <label>Data odbioru</label>
+                        <md-datepicker ng-model="user.submissionDate1"></md-datepicker>
                     </md-input-container>
 
                     <md-input-container>
-                        <label>Enter date</label>
-                        <md-datepicker ng-model="user.submissionDate"></md-datepicker>
+                        <label>Data odstawienia</label>
+                        <md-datepicker ng-model="user.submissionDate2"></md-datepicker>
                     </md-input-container>
                 </div>
 
                 <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm="">
-                        <label>First name</label>
-                        <input ng-model="user.firstName">
+                    <md-input-container class="md-block">
+                        <label>Adres</label>
+                        <input ng-model="user.address">
                     </md-input-container>
 
+
                     <md-input-container class="md-block" flex-gt-sm="">
-                        <label>Long Last Name That Will Be Truncated And 3 Dots (Ellipsis) Will Appear At The End</label>
-                        <input ng-model="theMax">
-                    </md-input-container>
-                </div>
-
-                <md-input-container class="md-block">
-                    <label>Address</label>
-                    <input ng-model="user.address">
-                </md-input-container>
-
-                <md-input-container md-no-float="" class="md-block">
-                    <input ng-model="user.address2" placeholder="Address 2">
-                </md-input-container>
-
-                <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm="">
-                        <label>City</label>
+                        <label>Miasto</label>
                         <input ng-model="user.city">
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="">
-                        <label>State</label>
-                        <md-select ng-model="user.state">
-                            <md-option ng-repeat="state in states" value="{{state.abbrev}}">
-                                {{state.abbrev}}
-                            </md-option>
-                        </md-select>
-                    </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm="">
-                        <label>Postal Code</label>
-                        <input name="postalCode" ng-model="user.postalCode" placeholder="12345" required="" ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+                        <label>Kod pocztowy (bez'-')</label>
+                        <input name="postalCode" ng-model="user.postalCode" placeholder="12345" required="" ng-pattern="/^[0-9]{5}$/" md-maxlength="6">
 
                         <div ng-messages="userForm.postalCode.$error" role="alert" multiple="">
-                            <div ng-message="required" class="my-message">You must supply a postal code.</div>
+                            <div ng-message="required" class="my-message">Musisz podać kod pocztowy.</div>
                             <div ng-message="pattern" class="my-message">
-                                That doesn't look like a valid postal
-                                code.
+                                To nie jest kod pocztowy.
                             </div>
                             <div ng-message="md-maxlength" class="my-message">
-                                Don't use the long version silly...we don't need to be that specific...
+                                Podany kod jest zbyt długi.
                             </div>
                         </div>
                     </md-input-container>
                 </div>
 
                 <md-input-container class="md-block">
-                    <label>Biography</label>
+                    <label>Uwagi</label>
                     <textarea ng-model="user.biography" md-maxlength="150" rows="5" md-select-on-focus=""></textarea>
                 </md-input-container>
+                <button type="submit" ng-click="saveData()" class="btn btn-success">Wyślij zgłoszenie</button>
 
 
             </form>
@@ -94,8 +94,3 @@
     </md-content>
 
 </div>
-
-<!--
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
--->

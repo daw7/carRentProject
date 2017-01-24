@@ -1,5 +1,4 @@
-﻿
-angular.module('App').controller('Email', ['$scope', '$http', function ($scope, $http) {
+﻿angular.module('App').controller('Email', ['$scope', '$http', function ($scope, $http) {
 
     $scope.mail = {}
 
@@ -11,10 +10,11 @@ angular.module('App').controller('Email', ['$scope', '$http', function ($scope, 
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             }
-            
+
         })
-        
+        window.location.href = "#";
+        alert("Twoje zapytanie zostało wysłane!");
     }
-    
-    
+
+
 }]);

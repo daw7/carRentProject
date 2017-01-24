@@ -1,33 +1,41 @@
 ﻿angular.module('App')
-  .controller('Order', ['$scope', 'OrderService', function ($scope, OrderService) {
-    //$scope.user = {
-    //  title: 'Developer',
-    //  email: 'ipsum@lorem.com',
-    //  firstName: '',
-    //  lastName: '',
-    //  company: 'Google',
-    //  address: '1600 Amphitheatre Pkwy',
-    //  city: 'Mountain View',
-    //  state: 'CA',
-    //  biography: 'Loves kittens, snowboarding, and can type at 130 WPM.\n\nAnd rumor has it she bouldered up Castle Craig!',
-    //  postalCode: '94043'
-    //};
+  .controller('Order', ['$scope', '$interval', 'OrderService', '$http', function ($scope, $interval, OrderService, $http) {
 
-    //$scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
-    //'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
-    //'WY').split(' ').map(function(state) {
-    //    return {abbrev: state};
-      //  })
+      $scope.user = {};
+
      
-      $scope.products = OrderService.getProducts();
-  }]);
 
- //.config(function ($mdThemingProvider) {
+      $scope.callAtTimeout = function () {
+     
+          $scope.cena =$scope.user.submissionDate2;
+      }
 
- //    // Configure a dark theme with primary foreground yellow
+      $interval(function () { $scope.callAtTimeout(); }, 2000);
+        $scope.products = OrderService.getProducts();
+        $scope.mail = {};
+        $scope.sendEmail = function () {
+            var tresc = "Imię: " + $scope.user.firstName + "\nNazwisko: " + $scope.user.secondName + "\nData odbioru: " + $scope.user.submissionDate1
+            + "\nData odstawy: " + $scope.user.submissionDate2 + "\nAdres: " + $scope.user.address + "\nMiasto: " + $scope.user.city + "\nKod pocztowy: " + $scope.user.postalCode
+            + "\nSamochód: " + $scope.products.brand + ", " + $scope.products.model + ", " + $scope.products.segment;
 
- //    $mdThemingProvider.theme('docs-dark', 'default')
- //      .primaryPalette('yellow')
- //      .dark();
+            $scope.mail = {
+                name: "Zamówienie ",
+                email: "wypożyczenia samochodu",
+                text: tresc
+            }
 
- //});
+
+            $http({
+                url: '/Emails/SendEmail',
+                method: "POST",
+                data: $.param($scope.mail),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                }
+            })
+
+
+            window.location.href = "#";
+            alert("Twoje zamówienie zostało wysłane!");
+        }
+    }]);
